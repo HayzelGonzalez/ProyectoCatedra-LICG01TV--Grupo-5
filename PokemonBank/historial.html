@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Configuración básica. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título de la pestaña. -->
+  <title>Historial</title>
+
+  <!-- Icono. -->
+  <link rel="icon" type="image/png" href="images/PKBL.png">
+
+  <!-- Bootstrap. -->
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+  <!-- Estilos propios. -->
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="bg-light">
+
+  <div class="container py-5">
+    <div class="card shadow historial-card">
+
+      <!-- Encabezado principal de la página. -->
+      <header class="historial-header">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+          <h2 class="mb-0">Historial de transacciones</h2>
+          <a href="acciones.html" class="btn btn-volver-custom mt-3 mt-sm-0">Volver</a>
+        </div>
+      </header>
+
+      <!-- Sección de la tabla. -->
+      <section class="historial-table-section">
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped align-middle">
+            <thead class="table-head-custom">
+              <tr>
+                <th>#</th>
+                <th>Tipo</th>
+                <th>Monto</th>
+              </tr>
+            </thead>
+
+            <!-- Aquí JavaScript insertará las filas. -->
+            <tbody id="tablaHistorial"></tbody>
+          </table>
+        </div>
+
+        <!-- Mensaje que aparece si no hay transacciones. -->
+        <p id="mensajeVacio" class="text-center text-muted mt-3 d-none">
+          No hay transacciones registradas.
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <!-- Librerías. -->
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="./node_modules/sweetalert/dist/sweetalert.min.js"></script>
+
+  <!-- Lógica principal. -->
+  <script src="./js/main.js"></script>
+</body>
+</html>
+<!-- Fin historial.html -->

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Configuración básica de caracteres y responsive. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título de la página. -->
+  <title>Acciones</title>
+
+  <!-- Icono de pestaña. -->
+  <link rel="icon" type="image/png" href="images/PKBL.png">
+
+  <!-- Bootstrap. -->
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+  <!-- Estilos personalizados. -->
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="bg-light">
+
+  <!-- Contenedor principal. -->
+  <div class="container py-5">
+    <div class="card shadow main-card mx-auto">
+
+      <!-- Encabezado con logo y datos del usuario. -->
+      <section class="top-section">
+        <div class="bank-logo-wrap">
+          <img src="images/PKBC.png" alt="Pokémon Bank" class="bank-logo">
+        </div>
+
+        <div class="user-panel">
+          <div class="row align-items-center">
+            <div class="col-3 col-sm-2 col-md-2 text-center">
+              <img src="images/AshKetchumPFP.jpg" alt="Foto de Ash" class="user-avatar">
+            </div>
+
+            <div class="col-9 col-sm-6 col-md-6">
+              <div class="user-data-box">
+                <!-- Aquí se inserta el nombre desde JavaScript. -->
+                <p><strong>Usuario:</strong> <span id="nombreUsuario"></span></p>
+
+                <!-- Aquí se inserta el número de cuenta desde JavaScript. -->
+                <p><strong>Cuenta:</strong> <span id="numeroCuenta"></span></p>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-4 col-md-4 mt-3 mt-sm-0">
+              <!-- Botón para cerrar sesión. -->
+              <button class="btn btn-logout-custom btn-block" onclick="cerrarSesion()">
+                Cerrar sesión
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Botones principales de operaciones. -->
+      <section class="actions-section">
+        <div class="row action-buttons">
+
+          <!-- Abre el modal de depósito. -->
+          <div class="col-md-6 mb-3">
+            <button class="btn btn-bank btn-depositar w-100" data-toggle="modal" data-target="#modalDepositar">
+              Depositar
+            </button>
+          </div>
+
+          <!-- Abre el modal de retiro. -->
+          <div class="col-md-6 mb-3">
+            <button class="btn btn-bank btn-retirar w-100" data-toggle="modal" data-target="#modalRetirar">
+              Retirar
+            </button>
+          </div>
+
+          <!-- Ejecuta la consulta de saldo. -->
+          <div class="col-md-6 mb-3">
+            <button class="btn btn-bank btn-saldo w-100" onclick="consultarSaldo()">
+              Consultar saldo
+            </button>
+          </div>
+
+          <!-- Abre el modal de pago de servicios. -->
+          <div class="col-md-6 mb-3">
+            <button class="btn btn-bank btn-servicios w-100" data-toggle="modal" data-target="#modalPagoServicio">
+              Pagar servicios
+            </button>
+          </div>
+
+          <!-- Enlace al historial. -->
+          <div class="col-md-6 mb-3">
+            <a href="historial.html" class="btn btn-bank btn-historial w-100">
+              Ver historial
+            </a>
+          </div>
+
+          <!-- Enlace al gráfico. -->
+          <div class="col-md-6 mb-3">
+            <a href="grafico.html" class="btn btn-bank btn-grafico w-100">
+              Ver gráfico
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- MODAL DE DEPÓSITO -->
+  <div class="modal fade" id="modalDepositar" tabindex="-1" aria-labelledby="modalDepositarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-form">
+      <div class="modal-content">
+        <div class="modal-header modal-header-bank justify-content-center position-relative">
+          <h5 class="modal-title m-0" id="modalDepositarLabel">Depósito</h5>
+          <button type="button" class="modal-close-btn" data-dismiss="modal" aria-label="Cerrar">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <form id="formDepositar">
+            <div class="form-group">
+              <label for="montoDeposito">Monto a depositar:</label>
+
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text dolar-bold">$</span>
+                </div>
+
+                <input
+                  type="number"
+                  id="montoDeposito"
+                  class="form-control"
+                  min="1"
+                  step="0.01"
+                  placeholder="Ingrese el monto"
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-modal-confirm" onclick="procesarDeposito()">Depositar</button>
+          <button type="button" class="btn btn-modal-cancel" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE RETIRO -->
+  <div class="modal fade" id="modalRetirar" tabindex="-1" aria-labelledby="modalRetirarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-form">
+      <div class="modal-content">
+        <div class="modal-header modal-header-bank justify-content-center position-relative">
+          <h5 class="modal-title m-0" id="modalRetirarLabel">Retiro</h5>
+          <button type="button" class="modal-close-btn" data-dismiss="modal" aria-label="Cerrar">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <form id="formRetirar">
+            <div class="form-group">
+              <label for="montoRetiro">Monto a retirar:</label>
+
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text dolar-bold">$</span>
+                </div>
+
+                <input
+                  type="number"
+                  id="montoRetiro"
+                  class="form-control"
+                  min="1"
+                  step="0.01"
+                  placeholder="Ingrese el monto"
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-modal-confirm" onclick="procesarRetiro()">Retirar</button>
+          <button type="button" class="btn btn-modal-cancel" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE PAGO DE SERVICIOS -->
+  <div class="modal fade" id="modalPagoServicio" tabindex="-1" aria-labelledby="modalPagoServicioLabel" aria-hidden="true">
+    <div class="modal-dialog modal-form">
+      <div class="modal-content">
+        <div class="modal-header modal-header-bank justify-content-center position-relative">
+          <h5 class="modal-title m-0" id="modalPagoServicioLabel">Pago de servicios</h5>
+          <button type="button" class="modal-close-btn" data-dismiss="modal" aria-label="Cerrar">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <form id="formPagoServicio">
+            <div class="form-group">
+              <label for="tipoServicio">Seleccione el servicio:</label>
+              <select id="tipoServicio" class="form-control">
+                <option value="">Seleccione una opción</option>
+                <option value="Agua potable">Agua potable</option>
+                <option value="Energía Eléctrica">Energía Eléctrica</option>
+                <option value="Internet">Internet</option>
+                <option value="Telefonía">Telefonía</option>
+              </select>
+            </div>
+
+            <div class="form-group mt-3">
+              <label for="montoServicio">Monto a pagar:</label>
+
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text dolar-bold">$</span>
+                </div>
+
+                <input
+                  type="number"
+                  id="montoServicio"
+                  class="form-control"
+                  min="1"
+                  step="0.01"
+                  placeholder="Ingrese el monto"
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn btn-modal-confirm" onclick="procesarPagoServicio()">Pagar</button>
+          <button type="button" class="btn btn-modal-cancel" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Librerías JS. -->
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="./node_modules/sweetalert/dist/sweetalert.min.js"></script>
+
+  <!-- Script principal. -->
+  <script src="./js/main.js"></script>
+</body>
+</html>
+<!-- Fin acciones.html -->
