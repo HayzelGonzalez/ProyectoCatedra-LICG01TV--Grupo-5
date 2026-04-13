@@ -528,7 +528,7 @@ function mostrarGrafico() {
   }
 
   // Se crea el gráfico de dona.
-  new Chart(canvas, {
+  const graficoTransacciones = new Chart(canvas, {
     type: "doughnut",
     data: {
       labels: labels,
@@ -542,6 +542,7 @@ function mostrarGrafico() {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           position: "bottom"
@@ -551,6 +552,10 @@ function mostrarGrafico() {
         }
       }
     }
+  });
+
+  window.addEventListener("resize", () => {
+    graficoTransacciones.resize();
   });
 }
 
